@@ -7,6 +7,9 @@ create_table = "CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY, first_n
                "password text) "
 cursor.execute(create_table)
 
+create_table = "CREATE TABLE IF NOT EXISTS book (title text, author text, isbn text, pub_date text)"
+cursor.execute(create_table)
+
 connection.commit()
 
 connection.close()
