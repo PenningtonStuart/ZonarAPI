@@ -58,7 +58,7 @@ class Book(Resource):
         cursor = connection.cursor()
 
         query = "UPDATE book SET author=?, isbn=?, pub_date=? WHERE title=?"
-        cursor.execute(query, ( book['author'], book['isbn'], book['pub_date'], book['title']))
+        cursor.execute(query, (book['author'], book['isbn'], book['pub_date'], book['title']))
 
         connection.commit()
         connection.close()
