@@ -3,6 +3,7 @@ from flask_restful import Resource, Api, reqparse
 from flask_jwt import JWT, jwt_required
 
 from security import authenticate, identity
+from user import UserRegister
 
 app = Flask(__name__)
 app.secret_key = "Zonar"  # obviously not something that should be pushed to production
@@ -62,5 +63,6 @@ class BooksList(Resource):
 
 api.add_resource(Book, '/book/<string:title>')
 api.add_resource(BooksList, '/books')
+api.add_resource(UserRegister, '/register')
 
 app.run(port=5000, debug=True)

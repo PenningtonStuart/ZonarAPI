@@ -9,7 +9,8 @@ cursor.execute(create_table)
 
 users = [
     (1, 'Katie', 'Pennington', 'katie.pennington@gmail.com', 'asdfg'),
-    (1, 'Katie', 'Pennington', 'katie.pennington@gmail.com', 'asdfg')
+    (2, 'Mike', 'Schwartz', 'mike.schwartz@gmail.com', 'qwerty'),
+    (3, 'Ken', 'Holmes', 'ken.holmes@gmail.com', 'ghjkl')
 ]
 insert_query = "INSERT INTO user VALUES(?, ?, ?, ?, ?)"
 cursor.executemany(insert_query, users)
