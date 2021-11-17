@@ -14,7 +14,7 @@ users = [
 insert_query = "INSERT INTO user VALUES(?, ?, ?, ?, ?)"
 cursor.executemany(insert_query, users)
 
-select_query = "SELECT * FROM users"
+select_query = "SELECT * FROM user"
 for row in cursor.execute(select_query):
     print(row)
 
