@@ -17,5 +17,6 @@ api.add_resource(Book, '/book/<string:title>')
 api.add_resource(BooksList, '/books')
 api.add_resource(UserRegister, '/register')
 
-
-app.run(port=5000, debug=True)
+#starting flask
+if __name__ == '__main__':
+    app.run(port=5000, debug=True)

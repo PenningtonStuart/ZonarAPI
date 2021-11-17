@@ -27,6 +27,13 @@ class Book(Resource):
 
     @jwt_required()
     def get(self, title):
+        book = self.find_by_title(title)
+        if title:
+                return title
+        return {'Message': "Item not found"}, 404
+
+    @classmethod
+    def find_by_title(cls, title):
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
 
@@ -41,13 +48,22 @@ class Book(Resource):
             return {'Message': "Item not found"}, 404
 
     def post(self, title):
-        if next(filter(lambda x: x['book'] == book, books), None) is not None:
+        if self.find_by_title(title):
             return {'message': "An item with name '{}' already exists.".format(title)}, 400
 
         data = Book.parser.parse_args()
 
-        book = {'title': title, 'author': data['author']}  # current bug when dealing with json and postman Some sort of mismatch bor json format interpretation
-        books.append(book)
+        book = {'title': title, 'author': data['author'], 'isbn': data['isbn'], 'pub_date': data['pub_date']}
+
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = "INSERT INTO book VALUES (?, ?, ?, ?)"
+        cursor.execute(query, (book['title'], book['author'], book['isbn'], book['pub_date']))
+
+        connection.commit()
+        connection.close()
+
         return book, 201
 
     def delete(self, title):
