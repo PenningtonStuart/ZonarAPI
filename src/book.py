@@ -25,12 +25,6 @@ class Book(Resource):
                         help="Publication Date is a required field"
                         )
 
-    @jwt_required()
-    def get(self, title):
-        book = self.find_by_title(title)
-        if title:
-                return title
-        return {'Message': "Item not found"}, 404
 
     @classmethod
     def find_by_title(cls, title):
@@ -46,6 +40,13 @@ class Book(Resource):
             return {'book': {'title': row[0], 'author': row[1], 'isbn': row[2], 'pub_date': row[3]}}
         else:
             return {'Message': "Item not found"}, 404
+
+    @jwt_required()
+    def get(self, title):
+        book = self.find_by_title(title)
+        if title:
+            return title
+        return {'Message': "Item not found"}, 404
 
     def post(self, title):
         if self.find_by_title(title):
@@ -67,8 +68,15 @@ class Book(Resource):
         return book, 201
 
     def delete(self, title):
-        global books
-        books = list(filter(lambda x: x['title'] != title, books))
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = "DELETE FROM book WHERE title=?"
+        cursor.execute(query, (title))
+
+        connection.commit()
+        connection.close()
+
         return {'message': 'Item deleted'}, 200
 
     def put(self, title):
