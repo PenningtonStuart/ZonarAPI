@@ -118,4 +118,15 @@ class Book(Resource):
 
 class BooksList(Resource):
     def get(self):
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = "SELECT * FROM book"
+        result = cursor.execute(query)
+        books = []
+        for row in result:
+            books.append({'title': row[0], 'author': row[1], 'isbn': row[2], 'pub_date': row[3]})
+
+        connection.close()
+
         return {'books': books}
