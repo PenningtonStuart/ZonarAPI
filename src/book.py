@@ -46,8 +46,7 @@ class Book(Resource):
 
         data = Book.parser.parse_args()
 
-        book = {'title': title, 'author': data[
-            'author']}  # current bug when dealing with json and postman Some sort of mismatch bor json format interpretation
+        book = {'title': title, 'author': data['author']}  # current bug when dealing with json and postman Some sort of mismatch bor json format interpretation
         books.append(book)
         return book, 201
 
