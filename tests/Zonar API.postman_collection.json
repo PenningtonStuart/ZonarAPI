@@ -10,11 +10,20 @@
 			"item": [
 				{
 					"name": "Get all Books",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true,
+							"user-agent": true,
+							"accept": true,
+							"accept-encoding": true,
+							"connection": true
+						}
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/Book",
+							"raw": "http://127.0.0.1:5000/books",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -24,7 +33,7 @@
 							],
 							"port": "5000",
 							"path": [
-								"Book"
+								"books"
 							]
 						}
 					},
@@ -40,7 +49,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Treasure Island\"\r\n}",
+							"raw": "{\r\n    \"title\": \"Test\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -48,7 +57,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/book/title",
+							"raw": "http://127.0.0.1:5000/book/test",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -59,7 +68,7 @@
 							"port": "5000",
 							"path": [
 								"book",
-								"title"
+								"test"
 							]
 						}
 					},
@@ -116,23 +125,26 @@
 							"host": true,
 							"accept": true,
 							"accept-encoding": true,
-							"connection": true
-						}
+							"connection": true,
+							"content-type": true
+						},
+						"strictSSL": false,
+						"disableUrlEncoding": true
 					},
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Treasure Island\"\r\n}",
+							"raw": "{\"title\": \"test\", \"author\": \"Wilson Rawls\", \"isbn\": \"0-440-22814-X\", \"pub_date\": \"Jan 01, 1961\"}",
 							"options": {
 								"raw": {
-									"language": "json"
+									"language": "text"
 								}
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/book/title",
+							"raw": "http://127.0.0.1:5000/book/test",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -143,7 +155,7 @@
 							"port": "5000",
 							"path": [
 								"book",
-								"title"
+								"test"
 							]
 						}
 					},
@@ -197,54 +209,9 @@
 			"name": "User",
 			"item": [
 				{
-					"name": "Get all users",
+					"name": "Create/Update User",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:5000/user",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"user"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get User",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:5000/user/email",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"user",
-								"email"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create User",
-					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -274,9 +241,9 @@
 					"response": []
 				},
 				{
-					"name": "Create/Update User",
+					"name": "Create User",
 					"request": {
-						"method": "PUT",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -332,6 +299,91 @@
 							"path": [
 								"user",
 								"email"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "jwt authentication",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true,
+							"user-agent": true,
+							"accept": true,
+							"accept-encoding": true,
+							"connection": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ken.holmes@gmail.com\",\r\n    \"password\": \"ghjkl\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/auth",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true,
+							"user-agent": true,
+							"accept": true,
+							"accept-encoding": true,
+							"connection": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"ken\",\r\n    \"last_name\": \"holmes\",\r\n    \"email\": \"ken.holmes@gmail.com\",\r\n    \"password\": \"ghjkl\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"register"
 							]
 						}
 					},
