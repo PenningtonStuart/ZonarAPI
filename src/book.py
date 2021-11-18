@@ -70,16 +70,11 @@ class Book(Resource):
         return book
 
     def post(self, title):
-        print(request.json)
-        print(request.data)
-        print(request.values)
         if self.find_by_title(title)[1]==200:
             return {'message': "An item with name '{}' already exists.".format(title)}, 409
-        print("hi")
         data = Book.parser.parse_args()
-        print("Hello")
         book = {'title': title, 'author': data['author'], 'isbn': data['isbn'], 'pub_date': data['pub_date']}
-        print(book)
+
 
         self.insert(book)
 
